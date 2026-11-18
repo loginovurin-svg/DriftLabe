@@ -14,17 +14,17 @@ export interface GroundInfo {
 }
 
 export const CAR = {
-  mass: 1350, inertia: 1750, inertiaPitch: 2000, inertiaRoll: 2000,
-  axleFront: -1.35, axleRear: 1.35, trackHalf: 0.81, cgHeight: 0.55,
-  wheelRadius: 0.34, wheelInertia: 1.6, wheelDamp: 1.2,
-  peakTorque: 420, peakRpm: 4300, idleRpm: 950, maxRpm: 7200,
-  gears: [0, 3.5, 2.25, 1.55, 1.18, 0.95], reverseRatio: 3.0, finalDrive: 3.8, driveEff: 0.88,
-  brakeTorque: 1500, handbrakeTorque: 3800, dragCoef: 0.45,
-  steerMaxLow: 0.66, steerMaxHigh: 0.35, steerSpeedRef: 25,
-  pacejkaB: 10, pacejkaC: 1.3, slipB: 7, mu: 1.15, muFront: 1.08, muRear: 1.08,
-  yawDamp: 250, tcStart: 0.4, tcFull: 0.9,
+  mass: 1150, inertia: 877, inertiaPitch: 681, inertiaRoll: 370,
+  axleFront: -1.235, axleRear: 1.235, trackHalf: 0.72, cgHeight: 0.5,
+  wheelRadius: 0.32, wheelInertia: 1.5, wheelDamp: 1.0,
+  peakTorque: 274, peakRpm: 4800, idleRpm: 800, maxRpm: 7500,
+  gears: [0, 3.5, 2.25, 1.55, 1.18, 0.95], reverseRatio: 3.0, finalDrive: 4.083, driveEff: 0.85,
+  brakeTorque: 1200, handbrakeTorque: 3500, dragCoef: 0.39,
+  steerMaxLow: 0.6, steerMaxHigh: 0.6, steerSpeedRef: 25,
+  pacejkaB: 10, pacejkaC: 1.3, slipB: 7, mu: 1.1, muFront: 1.12, muRear: 1.08,
+  yawDamp: 400, tcStart: 0.3, tcFull: 0.8,
   // ПОДВЕСКА
-  springRate: 35000, damping: 4500, suspensionRest: 0.15, suspensionMax: 0.25, antiRollBar: 8000,
+  springRate: 35000, damping: 3888, suspensionRest: 0.15, suspensionMax: 0.25, antiRollBar: 10000,
 };
 
 const G = 9.81;
@@ -83,7 +83,7 @@ export class CarPhysics {
     const sf = clamp(this.speed / CAR.steerSpeedRef, 0, 1);
     const maxSteer = CAR.steerMaxLow + (CAR.steerMaxHigh - CAR.steerMaxLow) * sf;
     const steerTarget = -ctl.steer * maxSteer;
-    const steerSpeed = this.speed > 20 ? 4.5 : 6.5;
+    const steerSpeed = 0.85;
     this.steer = approach(this.steer, steerTarget, steerSpeed * h);
     if (this.shiftTimer > 0) this.shiftTimer -= h;
 
@@ -173,7 +173,7 @@ export class CarPhysics {
 
       let Tw = 0;
       if (isDriven && this.shiftTimer <= 0) Tw = (engineTq * ratio * CAR.finalDrive * CAR.driveEff) / 2;
-      if (ctl.brake > 0.01) Tw -= ctl.brake * CAR.brakeTorque * Math.tanh(w * 10);
+      if (ctl.brake > 0.01) Tw -= ctl.brake * (CAR.brakeTorque / 4) * Math.tanh(w * 10);
       if (ctl.handbrake && isDriven) Tw -= CAR.handbrakeTorque * Math.tanh(w * 10);
       
       const dw = (Tw - Fxi * CAR.wheelRadius - CAR.wheelDamp * w) / CAR.wheelInertia;
