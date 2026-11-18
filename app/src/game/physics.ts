@@ -14,17 +14,17 @@ export interface GroundInfo {
 }
 
 export const CAR = {
-  mass: 1150, inertia: 877, inertiaPitch: 681, inertiaRoll: 370,
-  axleFront: -1.235, axleRear: 1.235, trackHalf: 0.72, cgHeight: 0.5,
-  wheelRadius: 0.32, wheelInertia: 1.5, wheelDamp: 1.0,
-  peakTorque: 274, peakRpm: 4800, idleRpm: 800, maxRpm: 7500,
-  gears: [0, 3.5, 2.25, 1.55, 1.18, 0.95], reverseRatio: 3.0, finalDrive: 4.083, driveEff: 0.85,
-  brakeTorque: 1200, handbrakeTorque: 3500, dragCoef: 0.39,
-  steerMaxLow: 0.6, steerMaxHigh: 0.6, steerSpeedRef: 25,
-  pacejkaB: 10, pacejkaC: 1.3, slipB: 7, mu: 1.1, muFront: 1.12, muRear: 1.08,
-  yawDamp: 400, tcStart: 0.3, tcFull: 0.8,
-  // ПОДВЕСКА
-  springRate: 35000, damping: 3888, suspensionRest: 0.15, suspensionMax: 0.25, antiRollBar: 10000,
+mass: 1150, inertia: 877, inertiaPitch: 681, inertiaRoll: 370,
+axleFront: -1.235, axleRear: 1.235, trackHalf: 0.72, cgHeight: 0.48,
+wheelRadius: 0.32, wheelInertia: 1.5, wheelDamp: 1.0,
+peakTorque: 274, peakRpm: 4800, idleRpm: 800, maxRpm: 7500,
+gears: [0, 3.5, 2.25, 1.55, 1.18, 0.95], reverseRatio: 3.0, finalDrive: 4.083, driveEff: 0.85,
+brakeTorque: 1200, handbrakeTorque: 3500, dragCoef: 0.39,
+steerMaxLow: 0.35, steerMaxHigh: 0.18, steerSpeedRef: 30,
+pacejkaB: 8.5, pacejkaC: 1.3, slipB: 6, mu: 1.15, muFront: 1.18, muRear: 1.02,
+yawDamp: 450, tcStart: 0.35, tcFull: 0.85,
+// ПОДВЕСКА
+springRate: 38000, damping: 4000, suspensionRest: 0.15, suspensionMax: 0.25, antiRollBar: 14000,
 };
 
 const G = 9.81;
