@@ -94,8 +94,8 @@ export function initDebugUI(): void {
   const fMass = gui.addFolder("Масса и инерция");
   fMass.add(CAR, "mass", 800, 2500).step(10).name("Масса (кг)");
   fMass.add(CAR, "inertia", 800, 3000).step(10).name("Инерция (кг·м²)");
-  fMass.add(CAR, "inertiaPitch", 1000, 4000).step(50).name("Инерция Pitch");
-  fMass.add(CAR, "inertiaRoll", 1000, 4000).step(50).name("Инерция Roll");
+  fMass.add(CAR, "inertiaPitch", 200, 4000).step(50).name("Инерция Pitch");
+  fMass.add(CAR, "inertiaRoll", 200, 4000).step(50).name("Инерция Roll");
   fMass.add(CAR, "cgHeight", 0.3, 0.9).step(0.01).name("Высота ЦТ (м)");
   fMass.open();
 
@@ -109,6 +109,7 @@ export function initDebugUI(): void {
   fWheels.open();
 
   const fSusp = gui.addFolder("Подвеска");
+  fSusp.add(CAR, "suspensionOffsetY", -0.5, 0.5).step(0.01).name("Смещение подвески Y");
   fSusp.add(CAR, "springRate", 10000, 80000).step(1000).name("Жёсткость пружины");
   fSusp.add(CAR, "damping", 1000, 10000).step(100).name("Демпфирование");
   fSusp.add(CAR, "suspensionRest", 0.05, 0.3).step(0.01).name("Длина в покое");

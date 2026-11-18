@@ -24,7 +24,8 @@ steerMaxLow: 0.35, steerMaxHigh: 0.18, steerSpeedRef: 30,
 pacejkaB: 8.5, pacejkaC: 1.3, slipB: 6, mu: 1.15, muFront: 1.18, muRear: 1.02,
 yawDamp: 450, tcStart: 0.35, tcFull: 0.85,
 // ПОДВЕСКА (сбалансировано по формуле критического демпфирования)
-springRate: 34000, damping: 5200, suspensionRest: 0.20, suspensionMax: 0.35, antiRollBar: 9000,
+suspensionOffsetY: 0.0,
+  springRate: 34000, damping: 5200, suspensionRest: 0.20, suspensionMax: 0.35, antiRollBar: 9000,
 };
 
 const G = 9.81;
@@ -53,7 +54,7 @@ export class CarPhysics {
     this.x = x; this.z = z; this.yaw = yaw; this.vx = 0; this.vz = 0; this.omega = 0; this.steer = 0;
     // Равновесная высота: подвеска сжата ровно настолько, чтобы держать вес машины
     const eqCompression = (CAR.mass * G) / (4 * CAR.springRate);
-    const hubLocalY = CAR.cgHeight - (CAR.suspensionRest + CAR.wheelRadius);
+    const hubLocalY = CAR.cgHeight - CAR.suspensionOffsetY - (CAR.suspensionRest + CAR.wheelRadius);
     this.y = (CAR.suspensionMax + CAR.wheelRadius - eqCompression) - hubLocalY;
     this.pitch = 0; this.roll = 0; this.vy = 0; this.omegaPitch = 0; this.omegaRoll = 0;
     this.wheelSpin.fill(0); this.wheelOmega.fill(0); this.wheelCompression.fill(eqCompression);
@@ -102,7 +103,7 @@ export class CarPhysics {
     if (rpm > CAR.maxRpm) engineTq *= 0.15;
     this.rpm = rpm;
 
-    const hubLocalY = CAR.cgHeight - (CAR.suspensionRest + CAR.wheelRadius);
+    const hubLocalY = CAR.cgHeight - CAR.suspensionOffsetY - (CAR.suspensionRest + CAR.wheelRadius);
     const fzArray = [0, 0, 0, 0];
 
     for (let i = 0; i < 4; i++) {
