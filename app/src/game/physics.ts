@@ -23,8 +23,8 @@ brakeTorque: 1200, handbrakeTorque: 3500, dragCoef: 0.39,
 steerMaxLow: 0.35, steerMaxHigh: 0.18, steerSpeedRef: 30,
 pacejkaB: 8.5, pacejkaC: 1.3, slipB: 6, mu: 1.15, muFront: 1.18, muRear: 1.02,
 yawDamp: 450, tcStart: 0.35, tcFull: 0.85,
-// ПОДВЕСКА
-springRate: 38000, damping: 4000, suspensionRest: 0.15, suspensionMax: 0.25, antiRollBar: 14000,
+// ПОДВЕСКА (сбалансировано по формуле критического демпфирования)
+springRate: 34000, damping: 5200, suspensionRest: 0.20, suspensionMax: 0.35, antiRollBar: 9000,
 };
 
 const G = 9.81;
