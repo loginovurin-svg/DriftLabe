@@ -163,7 +163,8 @@ export class CarPhysics {
       if (isDriven) rearSigSum += sigma;
 
       let Fxi = D * pacejka(sigma, CAR.slipB, CAR.pacejkaC);
-      let Fyi = D * pacejka(alpha, CAR.pacejkaB, CAR.pacejkaC);
+      const lowSpeedFactor = clamp(this.speed / 8, 0.25, 1.0);
+      let Fyi = D * pacejka(alpha, CAR.pacejkaB, CAR.pacejkaC) * lowSpeedFactor;
       const sum = Math.abs(Fxi) + Math.abs(Fyi);
       if (sum > D) { const k = D / sum; Fxi *= k; Fyi *= k; }
 
