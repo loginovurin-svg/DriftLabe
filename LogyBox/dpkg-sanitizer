@@ -1,0 +1,19 @@
+#!/system/bin/sh
+
+set -eu
+
+PREFIX="/data/data/com.logbox/files/usr"
+REAL_DPKG="$PREFIX/bin/dpkg"
+SANITIZER="$PREFIX/libexec/logbox/dpkg-sanitize-deb.sh"
+
+for argument do
+    case "$argument" in
+        *.deb)
+            if [ -f "$argument" ]; then
+                "$SANITIZER" "$argument"
+            fi
+            ;;
+    esac
+done
+
+exec "$REAL_DPKG" "$@"
