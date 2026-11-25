@@ -1,0 +1,4 @@
+DPkg::Pre-Install-Pkgs {
+    "/data/data/com.logbox/files/usr/libexec/logbox/apt-sanitize-debs";
+};
+Dir::Bin::dpkg "/data/data/com.logbox/files/usr/libexec/logbox/dpkg-sanitizer";
