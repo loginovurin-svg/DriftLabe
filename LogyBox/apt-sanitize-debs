@@ -1,0 +1,18 @@
+#!/system/bin/sh
+
+set -eu
+
+PREFIX="/data/data/com.logbox/files/usr"
+SANITIZER="$PREFIX/libexec/logbox/dpkg-sanitize-deb.sh"
+
+# APT sends a small header followed by one local archive path per line.
+# Ignore the header and sanitize every .deb before invoking dpkg.
+while IFS= read -r package_path; do
+    case "$package_path" in
+        *.deb)
+            if [ -f "$package_path" ]; then
+                "$SANITIZER" "$package_path"
+            fi
+            ;;
+    esac
+done
